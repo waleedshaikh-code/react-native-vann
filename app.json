@@ -21,7 +21,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+    "package":"com.vanon",
+    "config" :{
+      "googleMaps":{
+        "apiKey":"AIzaSyDz-2b5XxU79s3P2K0u9FOs17zub5nkAVI"
+      },
+      "permissions":["ACCESS_COARSE_LOCATION","ACCESS_FINE_LOCATION","FOREGROUND_SERVICE"]
+    }
+    
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CheckBox from "expo-checkbox";
 
 
+
 const StudentLogin = ({navigation}) => {
 
     const [agree, setagree] = useState(false);
@@ -15,9 +16,9 @@ const StudentLogin = ({navigation}) => {
     const submit = () => {
      // return Alert.alert(userName, password);
 
-     if (userName === "huzaifa@gmail.com" && password === "123"){
+     if (userName === "waleed@gmail.com" && password === "123"){
       Alert.alert('Welcome to Student Screen')
-      navigation.navigate('StudentMap');
+      navigation.navigate('StudentMap')
   
      }else{
       Alert.alert('Email and password is not correct')

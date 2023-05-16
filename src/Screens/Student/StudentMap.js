@@ -1,14 +1,75 @@
-import { View, Text, StyleSheet, Dimensions, ScrollView,Image ,FlatList } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Image,
+  FlatList,
+} from "react-native";
+import React, { useState, useRef, useEffect } from "react";
 import { colors, parameters } from "../../global/styles";
 import { Icon } from "react-native-elements";
 import { StatusBar } from "expo-status-bar";
-import { filterData,carsAround } from "../../global/data";
+import  {filterData, carsAround } from "../../global/data";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { mapStyle } from "../../global/mapStyle";
+import * as Location from "expo-location";
+
+
+
+
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const StudentMap = ({ navigation }) => {
+  const [latlng, setLatLng] = useState({});
+
+//   const carsAround = [{latitude:-26.207487,longitude:28.236226},
+//     {latitude:-26.202616,longitude:28.227718},
+//     {latitude:-26.202424,longitude:28.236612},
+//     {latitude:-26.208565,longitude:28.237191},
+//     {latitude:-26.203598,longitude:28.239509},
+// ]
+// console.log(carsAround)
+
+
+  const checkPermission = async () => {
+    const hasPermission = await Location.requestForegroundPermissionsAsync();
+    if (hasPermission.status === "granted") {
+      const permission = await askPermission();
+      return permission;
+    }
+    return true;
+  };
+
+  const askPermission = async () => {
+    const permission = await Location.requestForegroundPermissionsAsync();
+    return permission.status === "granted";
+  };
+
+  const getLocation = async () => {
+    try {
+      const { granted } = await Location.requestForegroundPermissionsAsync();
+      if (!granted) return;
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync();
+      setLatLng({ latitude: latitude, longitude: longitude });
+    } catch (err) {}
+  };
+
+  const _map = useRef(1);
+
+  useEffect(() => {
+    checkPermission();
+    getLocation(),
+      // console.log(latlng)
+      [];
+  });
+
   return (
+    <>
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.icon1}>
@@ -20,111 +81,155 @@ const StudentMap = ({ navigation }) => {
           />
         </View>
       </View>
+
       <ScrollView bounces={false}>
         <View style={styles.home}>
           <Text style={styles.text1}>Destress your commute</Text>
           <View style={styles.view1}>
             <View style={styles.view8}>
-              <Text style={styles.text2}>Read a book.Take a nap. Stare out the window</Text>
+              <Text style={styles.text2}>
+                Read a book.Take a nap. Stare out the window
+              </Text>
               <View style={styles.button1}>
                 <Text style={styles.button1Text}>Ride with Van-On</Text>
               </View>
             </View>
             <View>
-              <Image 
-              style={styles.image1}
-              source={require('../../../assets/uberCar.png')}
+              <Image
+                style={styles.image1}
+                source={require("../../../assets/uberCar.png")}
               />
             </View>
           </View>
         </View>
 
         <View>
-                        <FlatList 
-                            numRows ={4}
-                            horizontal = {true}
-                            showsHorizontalScrollIndicator ={false}
-                            data ={filterData}
-                            keyExtractor = {(item)=>item.id}
-                            renderItem = { ({item})=>(
-                                <View style = {styles.card}>
-                                    <View style ={styles.view2}>
-                                        <Image style ={styles.image2} source = {item.image} />
-                                    </View>
-                                    <View>
-                                        <Text style ={styles.title}>{item.name}</Text>
-                                    </View>
-                                </View>
-                            )}
-                        />
-                    </View>
-                    <View style ={styles.view3}>
-                        <Text style ={styles.text3}> Where to ?</Text>  
-                        <View style ={styles.view4}>
-                            <Icon type = "material-community"
-                                name ="clock-time-four"
-                                color = {colors.grey1}
-                                size = {26}
-                             /> 
-                             <Text style ={{marginLeft:5}}>Now</Text> 
-                             <Icon type = "material-community"
-                                name ="chevron-down"
-                                color = {colors.grey1}
-                                size = {26}
-                             />  
-                        </View>     
-                    </View>
-                    <View style ={styles.view5}>
-                        <View style ={styles.view6}>
-                            <View style ={styles.view7}>
-                                <Icon type = "material-community"
-                                    name ="map-marker"
-                                    color = {colors.black}
-                                    size = {22}
-                                />
-                            </View>
-                            <View>
-                                <Text style ={{fontSize:18,color:colors.black}}>Millennium Mall</Text>
-                                <Text style ={{color:colors.grey3}}>Gulistan-e-Johar, Karachi</Text>
-                            </View>
-                        </View>
-                        <View>
-                            <Icon type = "material-community"
-                                        name ="chevron-right"
-                                        color = {colors.grey}
-                                        size = {26}
-                                    />
-                            </View>
-                    </View>
+          <FlatList
+            numRows={4}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={filterData}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.card}>
+                <View style={styles.view2}>
+                  <Image style={styles.image2} source={item.image} />
+                </View>
+                <View>
+                  <Text style={styles.title}>{item.name}</Text>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+        <View style={styles.view3}>
+          <Text style={styles.text3}> Where to ?</Text>
+          <View style={styles.view4}>
+            <Icon
+              type="material-community"
+              name="clock-time-four"
+              color={colors.grey1}
+              size={26}
+            />
+            <Text style={{ marginLeft: 5 }}>Now</Text>
+            <Icon
+              type="material-community"
+              name="chevron-down"
+              color={colors.grey1}
+              size={26}
+            />
+          </View>
+        </View>
+        <View style={styles.view5}>
+          <View style={styles.view6}>
+            <View style={styles.view7}>
+              <Icon
+                type="material-community"
+                name="map-marker"
+                color={colors.black}
+                size={22}
+              />
+            </View>
+            <View>
+              <Text style={{ fontSize: 18, color: colors.black }}>
+                Millennium Mall
+              </Text>
+              <Text style={{ color: colors.grey3 }}>
+                Gulistan-e-Johar, Karachi
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Icon
+              type="material-community"
+              name="chevron-right"
+              color={colors.grey}
+              size={26}
+            />
+          </View>
+        </View>
 
-                    <View style ={{...styles.view5,borderBottomWidth:0}}>
-                        <View style ={styles.view6}>
-                            <View style ={styles.view7}>
-                                <Icon type = "material-community"
-                                    name ="map-marker"
-                                    color = {colors.black}
-                                    size = {22}
-                                />
-                            </View>
-                            <View>
-                                <Text style ={{fontSize:18,color:colors.black}}>University Road</Text>
-                                <Text style ={{color:colors.grey3}}>Gulshan-e-Iqbal, Karachi</Text>
-                            </View>
-                        </View>
-                        <View>
-                            <Icon type = "material-community"
-                                        name ="chevron-right"
-                                        color = {colors.grey}
-                                        size = {26}
-                                    />
-                            </View>
-                    </View>
-                    <Text style ={styles.text4}> Around you</Text>
-             
+        <View style={{ ...styles.view5, borderBottomWidth: 0 }}>
+          <View style={styles.view6}>
+            <View style={styles.view7}>
+              <Icon
+                type="material-community"
+                name="map-marker"
+                color={colors.black}
+                size={22}
+              />
+            </View>
+            <View>
+              <Text style={{ fontSize: 18, color: colors.black }}>
+                University Road
+              </Text>
+              <Text style={{ color: colors.grey3 }}>
+                Gulshan-e-Iqbal, Karachi
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Icon
+              type="material-community"
+              name="chevron-right"
+              color={colors.grey}
+              size={26}
+            />
+          </View>
+        </View>
+        <Text style={styles.text4}> Around you</Text>
+
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <MapView
+            ref={_map}
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            customMapStyle={mapStyle}
+            showsUserLocation={true}
+            followsUserLocation={true}
+            // initialRegion={{
+            //   ...carsAround[0],
+            //   latitudeDelta: 0.008,
+            //   longitudeDelta: 0.008,
+            // }}
+          >
+
+            {carsAround.map((item, index) => {
+              <MapView.Marker coordinate={item} key={index.toString()}>
+                <Image
+                  source={require("../../../assets/carMarker.png")}
+                  style={styles.carsAround}
+                  resizeMode="cover"
+                />
+              </MapView.Marker>;
+            })}
+          </MapView>
+        </View>
       </ScrollView>
 
       <StatusBar style="light" backgroundColor="#2058c0" translucent={true} />
     </View>
+    </>
   );
 };
 

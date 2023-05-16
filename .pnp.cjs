@@ -34,6 +34,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["expo", "npm:48.0.16"],\
             ["expo-checkbox", "npm:2.3.1"],\
             ["expo-font", "virtual:c3601b73d1461f046904d2e603d67396cbf25dc14df656d97af95110eb23bf2e0dbe4c5253ca27da2f7d2f283dbe836892b8b84f88a1ff2c7412160c8cabd52b#npm:11.1.1"],\
+            ["expo-location", "virtual:a73f2ebb4f57003f1d485cf298dca7875aa4283bab0ed2e60ff88f451e487e8d8d4df6e125e53273632765a754ab2ed279fb3697c5cf70dc4e677fdb05a7981e#npm:15.2.0"],\
             ["expo-splash-screen", "virtual:a73f2ebb4f57003f1d485cf298dca7875aa4283bab0ed2e60ff88f451e487e8d8d4df6e125e53273632765a754ab2ed279fb3697c5cf70dc4e677fdb05a7981e#npm:0.18.2"],\
             ["expo-status-bar", "npm:1.4.4"],\
             ["react", "npm:18.2.0"],\
@@ -6839,6 +6840,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["expo-location", [\
+        ["npm:15.2.0", {\
+          "packageLocation": "./.yarn/unplugged/expo-location-virtual-6029bb96b2/node_modules/expo-location/",\
+          "packageDependencies": [\
+            ["expo-location", "npm:15.2.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:a73f2ebb4f57003f1d485cf298dca7875aa4283bab0ed2e60ff88f451e487e8d8d4df6e125e53273632765a754ab2ed279fb3697c5cf70dc4e677fdb05a7981e#npm:15.2.0", {\
+          "packageLocation": "./.yarn/unplugged/expo-location-virtual-6029bb96b2/node_modules/expo-location/",\
+          "packageDependencies": [\
+            ["expo-location", "virtual:a73f2ebb4f57003f1d485cf298dca7875aa4283bab0ed2e60ff88f451e487e8d8d4df6e125e53273632765a754ab2ed279fb3697c5cf70dc4e677fdb05a7981e#npm:15.2.0"],\
+            ["@types/expo", null],\
+            ["expo", "npm:48.0.16"]\
+          ],\
+          "packagePeers": [\
+            "@types/expo",\
+            "expo"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["expo-modules-autolinking", [\
         ["npm:1.2.0", {\
           "packageLocation": "./.yarn/cache/expo-modules-autolinking-npm-1.2.0-e71cba5bfc-e5f7f4b66e.zip/node_modules/expo-modules-autolinking/",\
@@ -12528,6 +12551,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["expo", "npm:48.0.16"],\
             ["expo-checkbox", "npm:2.3.1"],\
             ["expo-font", "virtual:c3601b73d1461f046904d2e603d67396cbf25dc14df656d97af95110eb23bf2e0dbe4c5253ca27da2f7d2f283dbe836892b8b84f88a1ff2c7412160c8cabd52b#npm:11.1.1"],\
+            ["expo-location", "virtual:a73f2ebb4f57003f1d485cf298dca7875aa4283bab0ed2e60ff88f451e487e8d8d4df6e125e53273632765a754ab2ed279fb3697c5cf70dc4e677fdb05a7981e#npm:15.2.0"],\
             ["expo-splash-screen", "virtual:a73f2ebb4f57003f1d485cf298dca7875aa4283bab0ed2e60ff88f451e487e8d8d4df6e125e53273632765a754ab2ed279fb3697c5cf70dc4e677fdb05a7981e#npm:0.18.2"],\
             ["expo-status-bar", "npm:1.4.4"],\
             ["react", "npm:18.2.0"],\
